@@ -68,7 +68,7 @@ You can change the default value for all other options as well in this way.
 Feedback
 --------
 
-Please send me an [email](roni@xiidea.net) or a tweet ‏@XiiDEA with any feedback you have.
+Please send me an [email](mailto:roni@xiidea.net) or a tweet ‏@XiiDEA with any feedback you have.
 
 This plugin is my first attempt at a custom widget for Viafoura Integrated System, so any ideas for improvement are welcome.
 
