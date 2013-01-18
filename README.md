@@ -62,7 +62,7 @@ You can change the default value for all other options as well in this way.
  * loginButtonClass: Class For login link.
  * logoutButtonClass: Class For logout link.
  * signupButtonClass: Class For signup link.
- * userAccountClass: Class For User neme label.
+ * userAccountClass: Class For User name label.
 
 
 Feedback
