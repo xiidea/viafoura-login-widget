@@ -38,31 +38,38 @@
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+            $.error( 'Method ' +  method + ' does not exist on jQuery.ViafouraLoginWidget' );
         }
 
     };
 
     var LoginWidget = function (el, settings) {
-        el.delegate('.'+settings.logoutButtonClass,'click',function(){
-            Viafoura.publish('user.logout');
-        });
+        var self = this;
 
-        el.delegate('.'+settings.loginButtonClass,'click',function(){
-            Viafoura.events.trigger("/user/login/click");
-        });
+        this.bindEvents = function(){
+            el.delegate('.'+settings.logoutButtonClass,'click',function(){
+                Viafoura.publish('user.logout');
+            });
 
-        el.delegate('.'+settings.signupButtonClass,'click',function(){
-            Viafoura.events.trigger("/user/signup/click");
-        });
+            el.delegate('.'+settings.loginButtonClass,'click',function(){
+                Viafoura.publish("/user/login/click");
+            });
 
-        el.delegate('.'+settings.userAccountClass,'click',function(){
-            Viafoura.events.trigger("/user/account/click",Viafoura.current.user);
-        });
+            el.delegate('.'+settings.signupButtonClass,'click',function(){
+                Viafoura.publish("/user/signup/click");
+            });
+
+            el.delegate('.'+settings.userAccountClass,'click',function(){
+                Viafoura.publish("/user/account/click",self.Viafoura.current.user);
+            });
+        }
 
         this.AddListeners = function(){
-            Viafoura.events.on('/user/login/success',function(){
-                if(Viafoura.current.user.id == 0){  //Logout
+            self.Viafoura = Viafoura.core;
+            self.bindEvents();
+
+            Viafoura.subscribe('/user/login/success',function(){
+                if(self.Viafoura.current.user.id && self.Viafoura.current.user.id != 0){  //Logout
                     console.log('logout');
                     renderLoggedOutView();
                 }else{
@@ -80,7 +87,7 @@
 
         var renderLoggedInView = function(){
             var html =  '<a href="#" class="'+settings.userAccountClass+'"> \
-                   '+ Viafoura.current.user.get('name') + '\
+                   '+ self.Viafoura.current.user.get('name') + '\
                    </a> | <a href="#" class="'+settings.logoutButtonClass+'">'+settings.logoutLabelText+'</a>';
             el.html(html);
         }
