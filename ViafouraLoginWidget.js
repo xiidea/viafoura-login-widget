@@ -62,7 +62,7 @@
             el.delegate('.'+settings.userAccountClass,'click',function(){
                 Viafoura.publish("/user/account/click",self.Viafoura.current.user);
             });
-        }
+        };
 
         this.AddListeners = function(){
             self.Viafoura = Viafoura.core;
@@ -70,27 +70,27 @@
 
             Viafoura.subscribe('/user/login/success',function(){
                 if(self.Viafoura.current.user.id && self.Viafoura.current.user.id != 0){  //Logout
-                    console.log('logout');
-                    renderLoggedOutView();
-                }else{
                     console.log('login');
                     renderLoggedInView();
+                }else{
+                    renderLoggedOutView();
+                    console.log('logout');
                 }
             });
-        }
+        };
 
         var renderLoggedOutView = function(){
             var html = '<a href="#" class="'+settings.loginButtonClass+'">'+settings.loginLabelText+'</a> | \
                     <a href="#" class="'+settings.signupButtonClass+'">'+settings.signupLabelText+'</a>';
             el.html(html);
-        }
+        };
 
         var renderLoggedInView = function(){
             var html =  '<a href="#" class="'+settings.userAccountClass+'"> \
                    '+ self.Viafoura.current.user.get('name') + '\
                    </a> | <a href="#" class="'+settings.logoutButtonClass+'">'+settings.logoutLabelText+'</a>';
             el.html(html);
-        }
+        };
 
         renderLoggedOutView();
     };
@@ -103,7 +103,7 @@
             return;
         }
         callableFunction();
-    }
+    };
 
     var ViafouraLoaded = function(){
         if(allWidgets.length == 0){
@@ -112,6 +112,6 @@
         for (var index = 0; index < allWidgets.length; index++) {
             allWidgets[index].AddListeners();
         }
-    }
+    };
     ViafouraDependentInit(ViafouraLoaded);
 })( jQuery );
