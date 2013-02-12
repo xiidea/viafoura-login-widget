@@ -64,19 +64,22 @@
             });
         };
 
-        this.AddListeners = function(){
+        var renderActiveStateView = function () {
+            if (self.Viafoura.current.user.id && self.Viafoura.current.user.id != 0) {
+                renderLoggedInView();
+            } else {
+                renderLoggedOutView();
+            }
+        };
+
+        this.AddListeners = function () {
             self.Viafoura = Viafoura.core;
             self.bindEvents();
 
-            Viafoura.subscribe('/user/login/success',function(){
-                if(self.Viafoura.current.user.id && self.Viafoura.current.user.id != 0){  //Logout
-                    console.log('login');
-                    renderLoggedInView();
-                }else{
-                    renderLoggedOutView();
-                    console.log('logout');
-                }
+            Viafoura.subscribe('/user/login/success', function () {
+                renderActiveStateView();
             });
+            renderActiveStateView();
         };
 
         var renderLoggedOutView = function(){
