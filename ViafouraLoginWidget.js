@@ -38,7 +38,7 @@
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on jQuery.ViafouraLoginWidget' );
+            return $.error( 'Method ' +  method + ' does not exist on jQuery.ViafouraLoginWidget' );
         }
 
     };
@@ -79,6 +79,11 @@
             Viafoura.subscribe('/user/login/success', function () {
                 renderActiveStateView();
             });
+
+            Viafoura.subscribe('/user/logout', function () {
+                renderLoggedOutView();
+            });
+
             renderActiveStateView();
         };
 
